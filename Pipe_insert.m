@@ -1,10 +1,10 @@
-%% Project: EDA_MOEAD
+function [pipe_eda]=Pipe_insert(pipe_eda,indic_gain)
+%Project: EDA_MOEAD
 %Author: Wang Zhao
 %Date: 20170103
-%Status: Programming
-
-%%
-function [pipe_eda]=Pipe_insert(pipe_eda,indic_gain)
+%Status:
+%       Check #1
+%       Check #2
 %Description: This function add a new part to the FIFO structure pipe_eda
 
 [~,~,length_history]=size(pipe_eda);

@@ -1,10 +1,10 @@
-%% Project: EDA_MOEAD
+function [obj_decomp]=Obj_decomp(indiv_1,type_decomp,penalty_PBI)
+%Project: EDA_MOEAD
 %Author: Wang Zhao
 %Date: 20170103
-%Status: Programming
-
-%%
-function [obj_decomp]=Obj_decomp(indiv_1,type_decomp,varargin)
+%Status:
+%       Check #1
+%       Check #2
 %Description: This function calculate the decomposed objective value of the
 %individual. The aim of the subproblem is to minimize the decompsed
 %objective value
@@ -25,10 +25,10 @@ switch type_decomp
     case 3
         %The distance from the solution to the line crossing reference
         %point
-        tmp_1=(abs(indiv_1.obj_norm_1*indiv_1.w2/indiv_1.w1-indiv_1_norm_2+1-indiv_1.w2/indiv_1.w1))/sqrt((indiv_1.w2/indiv_1.w1).^2+1);
+        tmp_1=(abs(indiv_1.obj_norm_1*indiv_1.w2/indiv_1.w1-indiv_1.obj_norm_2+1-indiv_1.w2/indiv_1.w1))/sqrt((indiv_1.w2/indiv_1.w1).^2+1);
         %The distance from the projected solution to the reference point
         tmp_2=sqrt((1-indiv_1.obj_norm_1)^2+(1-indiv_1.obj_norm_2)^2-tmp_1^2);
-        obj_decomp=tmp_2+varargin{1}*tmp_1;
+        obj_decomp=tmp_2+penalty_PBI*tmp_1;
 end
 
 end
