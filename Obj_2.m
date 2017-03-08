@@ -5,6 +5,7 @@ function [obj_2]=Obj_2(indiv_1,amount_airship,prec_obj_2,area_x,area_y,dist_cov)
 %Status:
 %        Check #1
 %        Check #2
+%        Check #3
 %Description: This function calculate the objective value of the input
 %individual
 
@@ -25,7 +26,7 @@ for cnt_3=1:1:amount_airship
             if indic_block_1(cnt_1,cnt_2)==0  % only those blocks that are not covered by the near space system will be tested
                 if ((abs(block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_1(cnt_3))+abs(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_1(cnt_3)))<=dist_cov)
                     indic_block_1(cnt_1,cnt_2)=1;
-                elseif (abs(block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_1(cnt_3))+abs(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_1(cnt_3))<=sqrt(2)*dist_cov)
+                elseif (abs(block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_1(cnt_3))+abs(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_1(cnt_3))<=(sqrt(2)*dist_cov))
                     tmp_1=sqrt((block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_1(cnt_3)).^2+(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_1(cnt_3)).^2);
                     if tmp_1<=dist_cov
                         indic_block_1(cnt_1,cnt_2)=1;
@@ -44,7 +45,7 @@ for cnt_3=1:1:amount_airship
             if indic_block_2(cnt_1,cnt_2)==0  % only those blocks that are not covered by the near space system will be tested
                 if (abs(block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_2(cnt_3))+abs(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_2(cnt_3))<=dist_cov)
                     indic_block_2(cnt_1,cnt_2)=1;
-                elseif (abs(block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_2(cnt_3))+abs(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_2(cnt_3))<=sqrt(2)*dist_cov)
+                elseif (abs(block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_2(cnt_3))+abs(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_2(cnt_3))<=(sqrt(2)*dist_cov))
                     tmp_1=sqrt((block_array(cnt_1,cnt_2,1)-indiv_1.pst_x_2(cnt_3)).^2+(block_array(cnt_1,cnt_2,2)-indiv_1.pst_y_2(cnt_3)).^2);
                     if tmp_1<=dist_cov
                         indic_block_2(cnt_1,cnt_2)=1;

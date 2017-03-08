@@ -17,6 +17,7 @@ function [pst_x_1,pst_y_1,pst_x_2,pst_y_2]=mutation_EDA(...
 %Status:
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function mutate the input individuals
 % 1: polynominal mutation
 % 2: uniform mutation
@@ -32,9 +33,14 @@ switch type_mutation
         
         %Phase 1 x
         for cnt_1=1:1:amount_airship
+            indic_mutated=0;
+            %ATTENTION: The 'indic_mutated' is used to indicate whether the
+            %           mutation operation has been performed.
+            %           '0' for not performed
+            %           '1' for performed
             tmp_1=rand();
             if tmp_1<=pr_mutation
-                while (pst_x_1(cnt_1)<=0)||(pst_x_1(cnt_1)>=area_x)
+                while (pst_x_1(cnt_1)<=0)||(pst_x_1(cnt_1)>=area_x)||(indic_mutated==0)
                     %Perform mutation
                     tmp_2=rand();
                     if tmp_2<0.5
@@ -43,14 +49,20 @@ switch type_mutation
                         tmp_3=1-(2-2*tmp_2)^(1/(yita_poly+1));
                     end
                     pst_x_1(cnt_1)=pst_x_1(cnt_1)+tmp_3*area_x;
+                    indic_mutated=1;
                 end
             end
         end
         %Phase 1 y
         for cnt_1=1:1:amount_airship
+            indic_mutated=0;
+            %ATTENTION: The 'indic_mutated' is used to indicate whether the
+            %           mutation operation has been performed.
+            %           '0' for not performed
+            %           '1' for performed
             tmp_1=rand();
             if tmp_1<=pr_mutation
-                while (pst_y_1(cnt_1)<=0)||(pst_y_1(cnt_1)>=area_y)
+                while (pst_y_1(cnt_1)<=0)||(pst_y_1(cnt_1)>=area_y)||(indic_mutated==0)
                     %Perform mutation
                     tmp_2=rand();
                     if tmp_2<0.5
@@ -59,15 +71,21 @@ switch type_mutation
                         tmp_3=1-(2-2*tmp_2)^(1/(yita_poly+1));
                     end
                     pst_y_1(cnt_1)=pst_y_1(cnt_1)+tmp_3*area_y;
+                    indic_mutated=1;
                 end
             end
         end
         
         %Phase 2 x
         for cnt_1=1:1:amount_airship
+            indic_mutated=0;
+            %ATTENTION: The 'indic_mutated' is used to indicate whether the
+            %           mutation operation has been performed.
+            %           '0' for not performed
+            %           '1' for performed
             tmp_1=rand();
             if tmp_1<=pr_mutation
-                while (pst_x_2(cnt_1)<=0)||(pst_x_2(cnt_1)>=area_x)
+                while (pst_x_2(cnt_1)<=0)||(pst_x_2(cnt_1)>=area_x)||(indic_mutated==0)
                     %Perform mutation
                     tmp_2=rand();
                     if tmp_2<0.5
@@ -76,14 +94,20 @@ switch type_mutation
                         tmp_3=1-(2-2*tmp_2)^(1/(yita_poly+1));
                     end
                     pst_x_2(cnt_1)=pst_x_2(cnt_1)+tmp_3*area_x;
+                    indic_mutated=1;
                 end
             end
         end
         %Phase 2 y
         for cnt_1=1:1:amount_airship
+            indic_mutated=0;
+            %ATTENTION: The 'indic_mutated' is used to indicate whether the
+            %           mutation operation has been performed.
+            %           '0' for not performed
+            %           '1' for performed
             tmp_1=rand();
             if tmp_1<=pr_mutation
-                while (pst_y_2(cnt_1)<=0)||(pst_y_2(cnt_1)>=area_y)
+                while (pst_y_2(cnt_1)<=0)||(pst_y_2(cnt_1)>=area_y)||(indic_mutated==0)
                     %Perform mutation
                     tmp_2=rand();
                     if tmp_2<0.5
@@ -92,6 +116,7 @@ switch type_mutation
                         tmp_3=1-(2-2*tmp_2)^(1/(yita_poly+1));
                     end
                     pst_y_2(cnt_1)=pst_y_2(cnt_1)+tmp_3*area_y;
+                    indic_mutated=1;
                 end
             end
         end

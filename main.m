@@ -3,15 +3,16 @@
 %program. The program is the Estimated Distribution Algorithm based on
 %MOEA/D.
 % Status:
-%        Checked #1
-%        Checked #2  2017 02 20
+%        Check #1
+%        Check #2  2017 02 20
+%        Check #3
 %%
 clc;
 clear;
 %Start Time
 time_1=clock;
 disp(['The start time of the present experiment is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
-disp('EDA_MOEA/D version: 1.0');
+disp('EDA_MOEA/D version: 1.1');
 
 %Set random number
 rng('shuffle');
@@ -20,15 +21,15 @@ rng('shuffle');
 ID_series='000000';
 
 %Set the repetation of the whole program
-amount_rpt=10;
+amount_rpt=20;
 
 %The repeatition
-for cnt_1=1:1:amount_rpt
+for cnt_1=0:1:amount_rpt-1
     %Creat optimization configuration
     Creat_config_opt();
     
     %Creat the ID
-    if amount_rpt<=10
+    if cnt_1<10
         ID_1=[ID_series '0' num2str(cnt_1)];
     else
         ID_1=[ID_series num2str(cnt_1)];
@@ -54,7 +55,7 @@ end
 %               w2:         the weight of objective 2
 %               nb:         the neighbor vector of the current individual. The
 %                           'nb' reocrds the indexes of the individuals.
-%                           _____
+%                           _ _ _ _ _
 %               obj_norm_1: the normalized value of the objective 1
 %               obj_norm_2: the normalized value of the objective 2
 %               obj_decomp: the decomposed value of the two objectives
@@ -65,10 +66,7 @@ end
 %                           the individuals in EP list will be evaluated
 %                           again and the past objective values will be
 %                           recorded in this field. 
-%                           _
-%                           _
-%                           _
-%                           _
+%                           _ _ _ _ _
 %               obj_past_2: this is the objective value of the individual
 %                           if it enters the EP list. Therefore, the individuals that
 %                           are not in the EP list have no values in this
@@ -76,14 +74,13 @@ end
 %                           the individuals in EP list will be evaluated
 %                           again and the past objective values will be
 %                           recorded in this field. 
-%                           _
-%                           _
-%                           _
-%                           _
+%                           _ _ _ _ _
 % 2. user_array_1 & user_array_2: These two arrays record the user
 %                                 positions. Each row is one user. The
 %                                 first column is the x position and the
 %                                 second column is the y position.
+%                                 _ _
+%                                 _ _
 %3. ID: eight digits. _    _    _    _    _    _    _    _
 %                     The first six digits records the series number of the
 %                     experiments. The last two digits is the repetation

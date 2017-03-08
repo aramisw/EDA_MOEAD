@@ -5,6 +5,7 @@ function [obj_decomp]=Obj_decomp(indiv_1,type_decomp,penalty_PBI)
 %Status:
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function calculate the decomposed objective value of the
 %individual. The aim of the subproblem is to minimize the decompsed
 %objective value

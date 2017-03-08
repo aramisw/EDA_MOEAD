@@ -5,6 +5,7 @@ function EDA_MOEAD(ID_1)
 %Status:
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function is the main function of EDA-MOEAD
 %INPUT PARAMETERS:
 % ID_1: This is the complete ID of this experiment, which is used to name
@@ -130,8 +131,14 @@ end
 %Begin iteration
 while indic_termination==0
     
+    %ETA
+    tic;
+    
     %Iteration counter set
     cnt_time=cnt_time+1;
+    
+    %Display generation counter
+    disp(['Gen: ',num2str(cnt_time)]);
     
     %Generate the user distribution
     [user_array_1,user_array_2,indic_user_changed]=User_generator(...
@@ -280,9 +287,18 @@ while indic_termination==0
         indic_termination=1;
     end
     
-    %Record the results
-    save(ID_1);
+    %ETA
+    time_1=toc;
+    time_3=time_1*(gen_max-cnt_time);
+    time_2_h=floor(time_3/3600);
+    time_2_m=floor((time_3-time_2_h*3600)/60);
+    time_2_s=time_3-time_2_h*3600-time_2_m*60;
+    disp(['ETA: ',num2str(time_2_h),' hours ',num2str(time_2_m),' minutes ',num2str(time_2_s),' seconds.']);
+    
 end
+
+%Record the results
+save(ID_1);
 
 end
 

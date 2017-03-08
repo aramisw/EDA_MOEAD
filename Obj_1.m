@@ -12,8 +12,9 @@ cap_airship)
 %Author: Wang Zhao
 %Date: 20170103
 %Status: 
-%       Checked #1
-%       Checked #2
+%       Check #1
+%       Check #2
+%       Chwck #3
 %Description:This functin calculate the objective value of the input
 %individual
 

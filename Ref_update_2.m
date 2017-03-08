@@ -5,6 +5,7 @@ function [reference_obj_2,indic_ref_obj_2]=Ref_update_2(indiv_1,reference_obj_2)
 %Status:
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function checks if the reference of the ovjective 1
 %should be changed according to the input individual
 

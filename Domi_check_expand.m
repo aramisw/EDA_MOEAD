@@ -5,23 +5,27 @@ function [indic_new_domi,indic_EP_domi]=Domi_check_expand(indiv_new_1,indiv_EP)
 %Status:
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function checks the relationship between the new
 %individual and the input EP individual to decide the next processing
 %procedure of the two individuals. ATTENTION: The status of the new
 %individual will be left to
 % Result Explanation:
-% For indic_new_domi
-% 1: The new individual should be kept according to the current EP
-%    individual. Pay attention, the new individual might be dominated by
-%    the other EP individuals.
-% -1: The new individual should be deleted according to the current EP
-%     individual
-% For indic_EP_domi
-% 1: We should keep the EP individual
-% -1: We should not keep the EP individual
+% For indic_new_domi:
+%ATTENTION: The results are only related to the relative variables.
+% 1:  The new individual dominates the current objective values of the EP
+%     individual.
+% -1: The new individual is dominated by the current objective values of
+%     the EP individual.
+% 0:  The new individual and the EP individual do not dominate each other.
+% For indic_EP_domi:
+% 1:  The EP individual dominates the new individual or they do not dominate eath other
+%     according to its objectives of the current generation and the past generations.
+% -1: The EP individual is dominated by the new individual according to its
+%     objectives of the current generation and the past generations.
 
 %Information Preparation
-[amount_record,~]=size(indiv_EP.obj_past_1);
+[~,amount_record]=size(indiv_EP.obj_past_1);
 %ATTENTION: It is necessary to inquire the length of the objective value
 %           list because the length of the objective values lists of different EP
 %           individuals are not necessarily equal.
@@ -55,7 +59,7 @@ end
 %Check if we should keep the new individual
 switch cnt_2
     case 0
-        indic_new_domi=1;
+        indic_new_domi=0;
     case 2
         indic_new_domi=1;
     case -2
@@ -66,7 +70,7 @@ end
 indic_EP_domi=-1;
 indic_EP_record=zeros(amount_record,1);
 for cnt_1=1:1:amount_record  %Get the comparison results
-    indic_EP_record(cnt_1)=Domi_core(indiv_new_1.obj_1,indiv_new_1.obj_2,indiv_EP.obj_past_1,indiv_EP.obj_past_2);
+    indic_EP_record(cnt_1)=Domi_core(indiv_new_1.obj_1,indiv_new_1.obj_2,indiv_EP.obj_past_1(cnt_1),indiv_EP.obj_past_2(cnt_1));
 end
 for cnt_1=1:1:amount_record  %Check the results
     if ((indic_EP_record(cnt_1)==-1)||(indic_EP_record(cnt_1)==0))

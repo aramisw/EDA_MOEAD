@@ -5,9 +5,10 @@ function indic_domi=Domi_core(obj_new_1,obj_new_2,obj_EP_1,obj_EP_2)
 %Status: 
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function check the relationship between the two input
 %objective values
-%Result Explanation
+%Result Explanation: indic_domi
 % 1: The new one dominates strongly the old one
 % -1: The new one is dominated or equal to the old one
 % 0: The two input individuals do not dominate each other

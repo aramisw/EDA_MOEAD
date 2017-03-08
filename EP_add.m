@@ -5,6 +5,7 @@ function EP_list=EP_add(EP_list,indiv_new_1)
 %Status: 
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function add the new individual to the EP
 
 %Struct declaration
@@ -26,7 +27,7 @@ pop_array_field_1=...
     'obj_past_2'...
     };
 
-[amount_EP,~]=size(EP_list);
+[~,amount_EP]=size(EP_list);
 indic_new_add=zeros(amount_EP,1);
 indic_EP_domi=zeros(amount_EP,1);
 
@@ -64,11 +65,12 @@ if amount_EP~=0
     for cnt_1=1:1:amount_EP
         if indic_new_add(cnt_1)==-1
             indic_new_total_ok=0;
+            break;
         end
     end
     if indic_new_total_ok==1
         %The new individual is totally ok to be added to the new individual
-        [amount_EP_tmp,~]=size(EP_list_tmp);
+        [~,amount_EP_tmp]=size(EP_list_tmp);
         EP_list_tmp(amount_EP_tmp+1)=indiv_new_1;
         EP_list_tmp(amount_EP_tmp+1).obj_past_1=EP_list_tmp(amount_EP_tmp+1).obj_1;
         EP_list_tmp(amount_EP_tmp+1).obj_past_2=EP_list_tmp(amount_EP_tmp+1).obj_2;

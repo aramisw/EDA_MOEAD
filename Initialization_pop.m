@@ -1,10 +1,11 @@
-%% Project: EDA_MOEAD
+function pop_array=Initialization_pop(amount_pop,area_x,area_y,amount_airship,amount_neighbor)
+%Project: EDA_MOEAD
 %Author: Wang Zhao
 %Date: 20170103
-%Status: Programming
-
-%%
-function pop_array=Initialization_pop(amount_pop,area_x,area_y,amount_airship,amount_neighbor)
+%Status:
+%        Check #1
+%        Check #2
+%        Check #3
 %Description: This function initialize the pop_array
 
 %ATTENTION

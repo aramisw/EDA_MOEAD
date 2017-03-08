@@ -41,6 +41,7 @@ function [...
 %Status:
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function generate the new individual according to the
 %reproduction type
 %ATTENTION: This function only perform the crossover operation for the
@@ -236,6 +237,8 @@ switch type_new
                     % simplified
                 end
             end
+            %Calculate the balance that should be added to the empty blocks
+            avg_balance=amount_balance/(amount_block-sum(sum(indic_gain)));  %Calculate the averaged gain assigned to each blocks which have not airship deployed in         
             %Add balance to the blocks that do not have new airships in
             %this generations.
             for cnt_1=1:1:prec_EDA %Search the whole area to balance the blocks that have no airship deployed
@@ -276,9 +279,6 @@ switch type_new
                 pst_y_2(cnt_3)=rand()*y_block+bound_bottom;
             end
         else %enough records are available
-            %Set the eda_history_1 and eda_history_clean_1
-            eda_history_2=eda_history_2-pipe_eda_2(:,:,length_history);
-            eda_history_clean_2=eda_history_clean_2-pipe_eda_clean_2(:,:,length_history);
             %Get the statistic data
             for cnt_1=1:1:amount_neighbor
                 for cnt_2=1:1:amount_airship
@@ -308,6 +308,10 @@ switch type_new
                     end
                 end
             end
+            
+            %Set the eda_history_1 and eda_history_clean_1
+            eda_history_2=eda_history_2-pipe_eda_2(:,:,length_history);
+            eda_history_clean_2=eda_history_clean_2-pipe_eda_clean_2(:,:,length_history);
             
             %Set the pipe
             [pipe_eda_clean_2]=Pipe_insert(pipe_eda_clean_2,cnt_clean_gain);
@@ -478,7 +482,7 @@ switch type_new
             if tmp_1<=pr_crossover
                 while (pst_y_1(cnt_1)<=0)||(pst_y_1(cnt_1)>=area_y)
                     %Perform the crossover
-                    pst_y_1(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_1(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_1(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_1(cnt_1));
+                    pst_y_1(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_1(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_1(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_5)).pst_y_1(cnt_1));
                 end
             else
                 %Not perform the crossover
@@ -492,7 +496,7 @@ switch type_new
             if tmp_1<=pr_crossover
                 while (pst_x_2(cnt_1)<=0)||(pst_x_2(cnt_1)>=area_x)
                     %Perform the crossover
-                    pst_x_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_x_2(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_x_2(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_x_2(cnt_1));
+                    pst_x_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_x_2(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_x_2(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_5)).pst_x_2(cnt_1));
                 end
             else
                 %Not perform the crossover
@@ -505,7 +509,7 @@ switch type_new
             if tmp_1<=pr_crossover
                 while (pst_y_2(cnt_1)<=0)||(pst_y_2(cnt_1)>=area_y)
                     %Perform the crossover
-                    pst_y_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_2(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_2(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_2(cnt_1));
+                    pst_y_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_2(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_2(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_5)).pst_y_2(cnt_1));
                 end
             else
                 %Not perform the crossover

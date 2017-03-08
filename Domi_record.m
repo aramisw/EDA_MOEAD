@@ -2,15 +2,13 @@ function [obj_past_1,obj_past_2]=Domi_record(obj_1,obj_2,obj_past_1,obj_past_2)
 %Project: EDA_MOEAD
 %Author: Wang Zhao
 %Date: 20170103
-%Status: 
+%Status:
 %       Check #1
 %       Check #2
+%       Check #3
 %Description: This function checks the relationships between the new
 %records and the present records of the current individual. And Then update
 %the objective value list according to the result.
-% Result explanation: indic_domi
-% 1&0: The new objective values should be added to the list
-% -1: The new objective values should not be added to the list
 
 %Calculate the size of the obj history
 [~,amount_record]=size(obj_past_1);
@@ -18,12 +16,19 @@ function [obj_past_1,obj_past_2]=Domi_record(obj_1,obj_2,obj_past_1,obj_past_2)
 
 %Set the default value
 indic_domi=0;
+%Value Explanation: indic_domi
+% 0:  The new objective value is not dominated by any objective values of
+%     the past objective values
+% 1:  The new objective value dominates at least one objective values of the
+%     the past objective values
+% -1: The new objective value is dominated by at least one objective values
+%     the past objective values.
 
 %Set the temporary objective recorder counter
 indic_status=zeros(amount_record,1);
 %Value Explanation: indic_status
 % 0: The objective values and the new ones do not dominate each other
-% -1: The objective values dominate the new objective values
+% -1: The past objective values dominate the new objective values
 % 1: The new ones dominate the objective values
 
 %Compare the objective values
@@ -36,7 +41,7 @@ for cnt_1=1:1:amount_record
         if ((obj_1<=obj_past_1(cnt_1))&&(obj_2==obj_past_2(cnt_1)))||((obj_1==obj_past_1(cnt_1))&&(obj_2<=obj_past_2(cnt_1)))
             cnt_2=-2;
         end
-    else       
+    else
         cnt_2=0;
         if obj_1>obj_past_1(cnt_1)
             cnt_2=cnt_2+1;
@@ -52,33 +57,41 @@ for cnt_1=1:1:amount_record
     switch cnt_2
         case 2
             indic_status(cnt_1)=1;
-            indic_domi=1;
         case -2
             indic_status(cnt_1)=-1;
-            indic_domi=-1;
-            break;
         case 0
             indic_status(cnt_1)=0;
-            indic_domi=0;
+    end
+end
+cnt_2=1;
+obj_past_tmp_1=[];
+obj_past_tmp_2=[];
+for cnt_1=1:1:amount_record
+    if indic_status(cnt_1)~=1
+        obj_past_tmp_1(cnt_2)=obj_past_1(cnt_1);  %#ok<AGROW>
+        obj_past_tmp_2(cnt_2)=obj_past_2(cnt_1);   %#ok<AGROW>
+        cnt_2=cnt_2+1;
+    end
+end
+for cnt_1=1:1:amount_record
+    if indic_status(cnt_1)==1
+        indic_domi=1;
+        break;
+    end
+    if indic_status(cnt_1)==-1
+        indic_domi=-1;
+        break;
+    end
+    if indic_status(cnt_1)==0
+        indic_domi=0;
     end
 end
 if indic_domi~=-1
-    %The new objective values survive the comparison
-    cnt_2=1;
-    obj_past_tmp_1=[];
-    obj_past_tmp_2=[];
-    for cnt_1=1:1:amount_record
-        if indic_status(cnt_1)~=1
-            obj_past_tmp_1(cnt_2)=obj_past_1(cnt_1);  %#ok<AGROW>
-            obj_past_tmp_2(cnt_2)=obj_past_2(cnt_1);   %#ok<AGROW>
-            cnt_2=cnt_2+1;
-        end
-    end
     obj_past_tmp_1(cnt_2)=obj_1;
     obj_past_tmp_2(cnt_2)=obj_2;
-    obj_past_1=obj_past_tmp_1;
-    obj_past_2=obj_past_tmp_2;
 end
+obj_past_1=obj_past_tmp_1;
+obj_past_2=obj_past_tmp_2;
 %ATTENTION
 % If the new objective values did not pass the dominance check, it will not
 % be added to the objective value list of the current individual, but

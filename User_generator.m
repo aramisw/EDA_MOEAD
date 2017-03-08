@@ -6,15 +6,15 @@ function [user_array_1,user_array_2,indic_user_changed]=User_generator(...
     user_array_2,...
     area_x,...
     area_y)
-%%
-%Description: This function generate the user distribution accroding to the
-%parameter settings
 %Project: EDA_MOEAD
 %Author: Wang Zhao
 %Date: 20170103
 %Status:
 %       Check #1
 %       Check #2
+%       Check #3
+%Description: This function generate the user distribution accroding to the
+%parameter settings
 % INPUT PARAMETERS:
 % 1:  cnt_time: This is the iteration counter
 % 2:  user_distribution_type: This is the type of the user distribution, in

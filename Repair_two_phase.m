@@ -6,6 +6,7 @@ function [pst_x_1,pst_y_1,pst_x_2,pst_y_2]=Repair_two_phase(pst_x_1,pst_y_1,pst_
 %Status:
 %       check #1
 %       check #2
+%       check #3
 %Description: This function repairs the positions of thw two phases
 
 %Prepare the common information
