@@ -6,6 +6,7 @@ function [indic_new_domi,indic_EP_domi]=Domi_check_expand(indiv_new_1,indiv_EP)
 %       Check #1
 %       Check #2
 %       Check #3
+%       Check #4
 %Description: This function checks the relationship between the new
 %individual and the input EP individual to decide the next processing
 %procedure of the two individuals. ATTENTION: The status of the new
@@ -23,12 +24,6 @@ function [indic_new_domi,indic_EP_domi]=Domi_check_expand(indiv_new_1,indiv_EP)
 %     according to its objectives of the current generation and the past generations.
 % -1: The EP individual is dominated by the new individual according to its
 %     objectives of the current generation and the past generations.
-
-%Information Preparation
-[~,amount_record]=size(indiv_EP.obj_past_1);
-%ATTENTION: It is necessary to inquire the length of the objective value
-%           list because the length of the objective values lists of different EP
-%           individuals are not necessarily equal.
 
 cnt_2=0;
 %Check the relationship based on the current user distribution
@@ -67,16 +62,18 @@ switch cnt_2
 end
 
 %Check if we should keep the EP individual
-indic_EP_domi=-1;
-indic_EP_record=zeros(amount_record,1);
-for cnt_1=1:1:amount_record  %Get the comparison results
-    indic_EP_record(cnt_1)=Domi_core(indiv_new_1.obj_1,indiv_new_1.obj_2,indiv_EP.obj_past_1(cnt_1),indiv_EP.obj_past_2(cnt_1));
+indic_EP_domi=-1; %The initial value of the returned result is set as negative which stands for that the EP individual should be deleted
+indic_EP_record=Domi_core(indiv_new_1.obj_1,indiv_new_1.obj_2,indiv_EP.obj_past_1,indiv_EP.obj_past_2);
+%ATTENTION: According to the theory, we have to compare the relationships
+%           of the new individual's objective values and the EP
+%           individual's current objective values and the new individual's
+%           objective values and the EP individual's history objective
+%           values. However, the EP individual's history objective values
+%           definitely dominate its current objective values. Therefore, we
+%           only have to compare the relation between the new individual's
+%           objective value and the EP individual's history objective
+%           values.
+if ((indic_EP_record(cnt_1)==-1)||(indic_EP_record(cnt_1)==0))
+    indic_EP_domi=1;
 end
-for cnt_1=1:1:amount_record  %Check the results
-    if ((indic_EP_record(cnt_1)==-1)||(indic_EP_record(cnt_1)==0))
-        indic_EP_domi=1;
-        break;
-    end
-end
-
 end

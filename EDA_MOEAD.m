@@ -6,6 +6,7 @@ function EDA_MOEAD(ID_1)
 %       Check #1
 %       Check #2
 %       Check #3
+%       Check #4
 %Description: This function is the main function of EDA-MOEAD
 %INPUT PARAMETERS:
 % ID_1: This is the complete ID of this experiment, which is used to name
@@ -125,7 +126,7 @@ pipe_eda_clean_2=zeros(prec_EDA,prec_EDA,length_history,amount_pop);
 %Set the origin EP_list and initialize the EP with the initial population
 EP_list=[];
 for cnt_1=1:1:amount_pop
-    EP_list=EP_add(EP_list,pop_array(cnt_1));
+    EP_list=EP_add(EP_list,pop_array(cnt_1),type_new);
 end
 
 %Begin iteration
@@ -273,13 +274,11 @@ while indic_termination==0
                 para_obj_1,...
                 dist_cov,...
                 height_airship,...
-                cap_airship,...
-                prec_obj_2,...
-                area_x,...
-                area_y);
+                cap_airship...
+                );
         end
         %Add the individual to the external population (EP)
-        EP_list=EP_add(EP_list,indiv_new_1);
+        EP_list=EP_add(EP_list,indiv_new_1,type_new);
     end
     
     %Temination check
