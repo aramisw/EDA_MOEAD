@@ -30,9 +30,11 @@ pop_array_field_1=...
     'obj_past_1';...
     'obj_past_2'...
     };
+%Initialize the configuration filename
+ID_config_name=['config_opt_',ID_1(1:6),'.mat'];
 
 %Load configuration
-load('config_opt.mat');
+load(ID_config_name);
 
 %information calculation
 amount_neighbor=floor(amount_pop*ratio_neighbor);

@@ -73,7 +73,7 @@ indic_EP_record=Domi_core(indiv_new_1.obj_1,indiv_new_1.obj_2,indiv_EP.obj_past_
 %           only have to compare the relation between the new individual's
 %           objective value and the EP individual's history objective
 %           values.
-if ((indic_EP_record(cnt_1)==-1)||(indic_EP_record(cnt_1)==0))
+if ((indic_EP_record==-1)||(indic_EP_record==0))
     indic_EP_domi=1;
 end
 end

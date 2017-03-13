@@ -6,38 +6,62 @@
 %        Check #1
 %        Check #2  2017 02 20
 %        Check #3
+%        Check #4 blank
+%        Check #5
 %%
 clc;
 clear;
+
 %Start Time
 time_1=clock;
-disp(['The start time of the present experiment is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
-disp('EDA_MOEA/D version: 1.1001');
+
+%Open log file
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+fp_1=fopen('20170311.txt','w');
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+disp(['The start time of the experiment series is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
+disp('EDA_MOEA/D version: 1.1002');
+
+%Record the headings to the log file
+fprintf(fp_1,['The start time of the experiment series is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
+fprintf(fp_1,'\r\n');
+fprintf(fp_1,'EDA_MOEA/D version: 1.1002\n');
 
 %Set random number
 rng('shuffle');
 
 %ID set
-ID_series='000000';
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+ID_series(1,:)='000000';
+ID_series(2,:)='000001';
+ID_series(3,:)='000002';
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+%Calculate the number of experiment series
+[amount_series,~]=size(ID_series);
 
 %Set the repetation of the whole program
-amount_rpt=20;
+amount_rpt=10;
 
-%The repeatition
-for cnt_1=0:1:amount_rpt-1
-    %Creat optimization configuration
-    Creat_config_opt();
+%The loop of all the experiment series
+for cnt_1=1:1:amount_series
     
-    %Creat the ID
-    if cnt_1<10
-        ID_1=[ID_series '0' num2str(cnt_1)];
-    else
-        ID_1=[ID_series num2str(cnt_1)];
+    %The repeatition of the same experiment series
+    for cnt_2=0:1:amount_rpt-1
+        
+        %Creat the ID
+        if cnt_2<10
+            ID_1=[ID_series(cnt_1,1:6), '0', num2str(cnt_2)];
+        else
+            ID_1=[ID_series(cnt_1,1:6), num2str(cnt_2)];
+        end
+        
+        %Algorithm
+        %EDA_MOEAD(ID_1);
     end
-    
-    %Algorithm
-    EDA_MOEAD(ID_1);
 end
+fclose(fp_1);
 
 %Format
 % 1. pop_array: This is the array which records all the individuals
@@ -65,7 +89,7 @@ end
 %                           field. When new user distribution is generated,
 %                           the individuals in EP list will be evaluated
 %                           again and the past objective values will be
-%                           recorded in this field. 
+%                           recorded in this field.
 %                           _ _ _ _ _
 %               obj_past_2: this is the objective value of the individual
 %                           if it enters the EP list. Therefore, the individuals that
@@ -73,7 +97,7 @@ end
 %                           field. When new user distribution is generated,
 %                           the individuals in EP list will be evaluated
 %                           again and the past objective values will be
-%                           recorded in this field. 
+%                           recorded in this field.
 %                           _ _ _ _ _
 % 2. user_array_1 & user_array_2: These two arrays record the user
 %                                 positions. Each row is one user. The
@@ -86,4 +110,8 @@ end
 %                     experiments. The last two digits is the repetation
 %                     experiments which can contain 100 independent
 %                     experiment.
-%
+%4. Parameter setting marks: The parameter setting marks is labeled as
+%                            below:
+%                            %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%                            parameters to be set
+%                            %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
