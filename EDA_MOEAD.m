@@ -133,29 +133,41 @@ termination_1=[];
 
 %Check if we have to terminate the program in the first generation
 
-    %prepare the data to be input
-    [~,amount_EP]=size(EP_list);
-    obj_ter_1=[];  %the previous generation will be set as blank
-    obj_ter_2_pre=zeros(amount_EP,2);
+%prepare the data to be input
+[~,amount_EP]=size(EP_list);
+obj_ter_1=[];  %the previous generation will be set as blank
+obj_ter_2_pre=zeros(amount_EP,2);
+if type_new==1
+    %ATTENTION: The objective vectors used for termination criterion is not
+    %the same for the EDA based generator and the comparison generator
+    
+    %For the EDA generator
     for cnt_1=1:1:amount_EP
         obj_ter_2_pre(cnt_1,1)=EP_list(cnt_1).obj_past_1;
         obj_ter_2_pre(cnt_1,2)=EP_list(cnt_1).obj_past_2;
     end
-    
-    %Refine the current obective vector array
-    indic_add=EP_add_core2(obj_ter_2_pre);
-    cnt_2=1;
-    amount_obj_ter_2=sum(indic_add);
-    obj_ter_2=zeros(amount_obj_ter_2,2);
+else
+    %For the other generator
     for cnt_1=1:1:amount_EP
-        if indic_add(cnt_1)==1
-            obj_ter_2(cnt_2,:)=obj_ter_2_pre(cnt_1,:);
-            cnt_2=cnt_2+1;
-        end
+        obj_ter_2_pre(cnt_1,1)=EP_list(cnt_1).obj_1;
+        obj_ter_2_pre(cnt_1,2)=EP_list(cnt_1).obj_2;
     end
-    
-    %Perform the termination check
-    [termination_1,indic_termination]=EBT(termination_1,obj_ter_1,obj_ter_2,cnt_time,amount_bin,amount_gen,amount_decimal);
+end
+
+%Refine the current obective vector array
+indic_add=EP_add_core2(obj_ter_2_pre);
+cnt_2=1;
+amount_obj_ter_2=sum(indic_add);
+obj_ter_2=zeros(amount_obj_ter_2,2);
+for cnt_1=1:1:amount_EP
+    if indic_add(cnt_1)==1
+        obj_ter_2(cnt_2,:)=obj_ter_2_pre(cnt_1,:);
+        cnt_2=cnt_2+1;
+    end
+end
+
+%Perform the termination check
+[termination_1,indic_termination]=EBT(termination_1,obj_ter_1,obj_ter_2,cnt_time,amount_bin,amount_gen,amount_decimal);
 
 %Begin iteration
 while indic_termination==0
@@ -319,9 +331,16 @@ while indic_termination==0
         [~,amount_EP]=size(EP_list);
         obj_ter_1=obj_ter_2;  %prepare the objective value vectors of the previous generation
         obj_ter_2_pre=zeros(amount_EP,2);
-        for cnt_1=1:1:amount_EP
-            obj_ter_2_pre(cnt_1,1)=EP_list(cnt_1).obj_past_1;
-            obj_ter_2_pre(cnt_1,2)=EP_list(cnt_1).obj_past_2;
+        if type_new==1
+            for cnt_1=1:1:amount_EP
+                obj_ter_2_pre(cnt_1,1)=EP_list(cnt_1).obj_past_1;
+                obj_ter_2_pre(cnt_1,2)=EP_list(cnt_1).obj_past_2;
+            end
+        else
+            for cnt_1=1:1:amount_EP
+                obj_ter_2_pre(cnt_1,1)=EP_list(cnt_1).obj_1;
+                obj_ter_2_pre(cnt_1,2)=EP_list(cnt_1).obj_2;
+            end
         end
         
         %Refine the current obective vector array
