@@ -17,7 +17,7 @@ time_1=clock;
 
 %Open log file
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-fp_1=fopen('20170311.txt','w');
+fp_1=fopen('20170316.txt','w');
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 disp(['The start time of the experiment series is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
@@ -34,8 +34,6 @@ rng('shuffle');
 %ID set
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 ID_series(1,:)='000000';
-ID_series(2,:)='000001';
-ID_series(3,:)='000002';
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 %Calculate the number of experiment series
@@ -58,7 +56,7 @@ for cnt_1=1:1:amount_series
         end
         
         %Algorithm
-        %EDA_MOEAD(ID_1);
+        EDA_MOEAD(ID_1);
     end
 end
 fclose(fp_1);

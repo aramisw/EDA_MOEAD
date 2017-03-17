@@ -17,34 +17,38 @@ ID_series='000000';
 %Initialize the ID_series configuration filename
 ID_series_name=['config_opt_',ID_series,'.mat'];
 
-amount_pop=100;                  
-ratio_neighbor=0.1;              
-area_x=100;                      
-area_y=100;                      
-amount_airship=4;                
-dist_cov=20;                     
-height_airship=30;               
-cap_airship=100;                 
-fade_a2u_1=0.4;                  
-user_distribution_type=1;        
-interval_new=7;                  
-prec_obj_2=100;                  
-penalty_PBI=1;                   
-type_decomp=3;                   
-ratio_balance=0.3;               
-type_new=1;                      
-length_history=5;                
-prec_EDA=100;                    
-pr_crossover=0.5;                
-yita_SBX=1;                      
-F_DE=0.5;                        
-alpha_BLX=0.5;                   
-type_mutation=1;                     
-pr_mutation=0.8;                 
-yita_poly=20;                    
-gen_max=300;                     
-beta_NU=1;                       
-dist_move=10;                    
+amount_pop=100;
+ratio_neighbor=0.1;
+area_x=100;
+area_y=100;
+amount_airship=4;
+dist_cov=20;
+height_airship=30;
+cap_airship=100;
+fade_a2u_1=0.4;
+user_distribution_type=1;
+interval_new=7;
+prec_obj_2=100;
+penalty_PBI=1;
+type_decomp=3;
+ratio_balance=0.3;
+type_new=1;
+length_history=5;
+prec_EDA=100;
+pr_crossover=0.5;
+yita_SBX=1;
+F_DE=0.5;
+alpha_BLX=0.5;
+type_mutation=1;
+pr_mutation=0.8;
+yita_poly=20;
+gen_max=3000;
+beta_NU=1;
+dist_move=10;
+amount_bin=10;
+amount_gen=20;
+amount_decimal=3;
+
 
 
 save(ID_series_name,...
@@ -75,4 +79,7 @@ save(ID_series_name,...
     'yita_poly',...
     'gen_max',...
     'beta_NU',...
-    'dist_move');
+    'dist_move',...
+    'amount_bin',...
+    'amount_gen',...
+    'amount_decimal');

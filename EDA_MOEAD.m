@@ -110,9 +110,6 @@ for cnt_1=1:1:amount_pop
     pop_array(cnt_1).obj_decomp=Obj_decomp(pop_array(cnt_1),type_decomp,penalty_PBI);
 end
 
-%Set the termination indicator
-indic_termination=0;  % '0' stands for continuing the iteration and '1' stands for terminates the iteration
-
 %Set the initial EDA probability history
 eda_history_1=zeros(prec_EDA,prec_EDA,amount_pop);
 eda_history_2=zeros(prec_EDA,prec_EDA,amount_pop);
@@ -130,6 +127,35 @@ EP_list=[];
 for cnt_1=1:1:amount_pop
     EP_list=EP_add(EP_list,pop_array(cnt_1),type_new);
 end
+
+%Initialize the termination data
+termination_1=[];
+
+%Check if we have to terminate the program in the first generation
+
+    %prepare the data to be input
+    [~,amount_EP]=size(EP_list);
+    obj_ter_1=[];  %the previous generation will be set as blank
+    obj_ter_2_pre=zeros(amount_EP,2);
+    for cnt_1=1:1:amount_EP
+        obj_ter_2_pre(cnt_1,1)=EP_list(cnt_1).obj_past_1;
+        obj_ter_2_pre(cnt_1,2)=EP_list(cnt_1).obj_past_2;
+    end
+    
+    %Refine the current obective vector array
+    indic_add=EP_add_core2(obj_ter_2_pre);
+    cnt_2=1;
+    amount_obj_ter_2=sum(indic_add);
+    obj_ter_2=zeros(amount_obj_ter_2,2);
+    for cnt_1=1:1:amount_EP
+        if indic_add(cnt_1)==1
+            obj_ter_2(cnt_2,:)=obj_ter_2_pre(cnt_1,:);
+            cnt_2=cnt_2+1;
+        end
+    end
+    
+    %Perform the termination check
+    [termination_1,indic_termination]=EBT(termination_1,obj_ter_1,obj_ter_2,cnt_time,amount_bin,amount_gen,amount_decimal);
 
 %Begin iteration
 while indic_termination==0
@@ -285,7 +311,33 @@ while indic_termination==0
     
     %Temination check
     if cnt_time>=gen_max
+        %ATTENTION: If the number of the iterations exceeds the maximum
+        %           threshold, the program will be terminated anyway.
         indic_termination=1;
+    else
+        %prepare the data to be input
+        [~,amount_EP]=size(EP_list);
+        obj_ter_1=obj_ter_2;  %prepare the objective value vectors of the previous generation
+        obj_ter_2_pre=zeros(amount_EP,2);
+        for cnt_1=1:1:amount_EP
+            obj_ter_2_pre(cnt_1,1)=EP_list(cnt_1).obj_past_1;
+            obj_ter_2_pre(cnt_1,2)=EP_list(cnt_1).obj_past_2;
+        end
+        
+        %Refine the current obective vector array
+        indic_add=EP_add_core2(obj_ter_2_pre);
+        cnt_2=1;
+        amount_obj_ter_2=sum(indic_add);
+        obj_ter_2=zeros(amount_obj_ter_2,2);
+        for cnt_1=1:1:amount_EP
+            if indic_add(cnt_1)==1
+                obj_ter_2(cnt_2,:)=obj_ter_2_pre(cnt_1,:);
+                cnt_2=cnt_2+1;
+            end
+        end
+        
+        %Perform the termination check
+        [termination_1,indic_termination]=EBT(termination_1,obj_ter_1,obj_ter_2,cnt_time,amount_bin,amount_gen,amount_decimal);
     end
     
     %ETA
