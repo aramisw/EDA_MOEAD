@@ -17,30 +17,45 @@ time_1=clock;
 
 %Open log file
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-fp_1=fopen('20170316.txt','w');
+fp_1=fopen('20170318.txt','w');
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 disp(['The start time of the experiment series is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
-disp('EDA_MOEA/D version: 1.1002');
+disp('EDA_MOEA/D version: 1.2');
 
 %Record the headings to the log file
+fprintf(fp_1,'---------------------------------------------------------------------------\r\n');
 fprintf(fp_1,['The start time of the experiment series is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
 fprintf(fp_1,'\r\n');
-fprintf(fp_1,'EDA_MOEA/D version: 1.1002\n');
+fprintf(fp_1,'---------------------------------------------------------------------------\r\n');
+fprintf(fp_1,'EDA_MOEA/D version: 1.2\r\n');
+fprintf(fp_1,'---------------------------------------------------------------------------\r\n');
+fprintf(fp_1,'Experiment Series:\r\n');
 
 %Set random number
 rng('shuffle');
 
 %ID set
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-ID_series(1,:)='000000';
+ID_series(1,:)='000002';
+ID_series(2,:)='000003';
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 %Calculate the number of experiment series
 [amount_series,~]=size(ID_series);
 
+%Record the info to the txt file
+for cnt_1=1:1:amount_series
+    fprintf(fp_1,[ID_series(cnt_1,:), '\r\n']);
+end
+fprintf(fp_1,'---------------------------------------------------------------------------\r\n');
+
 %Set the repetation of the whole program
 amount_rpt=10;
+
+%Record the info to the txt file
+fprintf(fp_1,['Repetition:',num2str(amount_rpt),'\r\n']);
+fprintf(fp_1,'---------------------------------------------------------------------------\r\n');
 
 %The loop of all the experiment series
 for cnt_1=1:1:amount_series
@@ -56,9 +71,19 @@ for cnt_1=1:1:amount_series
         end
         
         %Algorithm
-        EDA_MOEAD(ID_1);
+        EDA_MOEAD(ID_1,cnt_2);
     end
 end
+
+%End Time
+time_1=clock;
+
+%Record the info to the txt file
+disp(['The end time of the experiment series is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
+fprintf(fp_1,['The end time of the experiment series is: ',num2str(time_1(1)),' ',num2str(time_1(2)),' ',num2str(time_1(3)),'th ',num2str(time_1(4)),' : ',num2str(time_1(5)),' : ',num2str(time_1(6))]);
+fprintf(fp_1,'\r\n');
+fprintf(fp_1,'---------------------------------------------------------------------------');
+
 fclose(fp_1);
 
 %Format

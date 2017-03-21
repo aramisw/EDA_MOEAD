@@ -1,4 +1,4 @@
-function EDA_MOEAD(ID_1)
+function EDA_MOEAD(ID_1,rpt_1)
 %Project: EDA_MOEAD
 %Author: Wang Zhao
 %Date: 20170103
@@ -11,6 +11,7 @@ function EDA_MOEAD(ID_1)
 %INPUT PARAMETERS:
 % ID_1: This is the complete ID of this experiment, which is used to name
 % the result file.
+% rpt_1: This is the repetition index of the current experiment
 
 %Struct declaration
 pop_array_field_1=...
@@ -168,6 +169,7 @@ end
 
 %Perform the termination check
 [termination_1,indic_termination]=EBT(termination_1,obj_ter_1,obj_ter_2,cnt_time,amount_bin,amount_gen,amount_decimal);
+
 
 %Begin iteration
 while indic_termination==0
@@ -365,7 +367,7 @@ while indic_termination==0
     time_2_h=floor(time_3/3600);
     time_2_m=floor((time_3-time_2_h*3600)/60);
     time_2_s=time_3-time_2_h*3600-time_2_m*60;
-    disp(['ETA: ',num2str(time_2_h),' hours ',num2str(time_2_m),' minutes ',num2str(time_2_s),' seconds.']);
+    disp(['RPT:',num2str(rpt_1),'ETA: ',num2str(time_2_h),' hours ',num2str(time_2_m),' minutes ',num2str(time_2_s),' seconds.']);
     
 end
 
