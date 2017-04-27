@@ -11,7 +11,7 @@
 %       Check #5
 
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-ID_series='000000';
+ID_series='000003';
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 %Initialize the ID_series configuration filename
@@ -33,7 +33,7 @@ penalty_PBI=1;
 type_decomp=3;
 ratio_balance=0.3;          %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 type_new=1;                 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-length_history=5;           %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+length_history=20;           %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 prec_EDA=100;
 pr_crossover=0.8;
 yita_SBX=1;

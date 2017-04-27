@@ -453,6 +453,9 @@ switch type_new
     case 3
         %DE
         
+        %Record the origin F_DE
+        F_DE_ori=F_DE;
+        
         %Randomly select two individuals
         cnt_3=0;
         cnt_4=0;
@@ -470,11 +473,13 @@ switch type_new
                 while (pst_x_1(cnt_1)<=0)||(pst_x_1(cnt_1)>=area_x)
                     %Perform the crossover
                     pst_x_1(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_x_1(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_x_1(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_5)).pst_x_1(cnt_1));
+                    F_DE=F_DE*0.95;
                 end
             else
                 %Not perform the crossover
                 pst_x_1(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_x_1(cnt_1);
             end
+            F_DE=F_DE_ori;
         end
         %Phase 1 y
         for cnt_1=1:1:amount_airship
@@ -483,11 +488,13 @@ switch type_new
                 while (pst_y_1(cnt_1)<=0)||(pst_y_1(cnt_1)>=area_y)
                     %Perform the crossover
                     pst_y_1(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_1(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_1(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_5)).pst_y_1(cnt_1));
+                    F_DE=F_DE*0.95;
                 end
             else
                 %Not perform the crossover
                 pst_y_1(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_1(cnt_1);
             end
+            F_DE=F_DE_ori;
         end
         
         %Phase 2 x
@@ -497,11 +504,13 @@ switch type_new
                 while (pst_x_2(cnt_1)<=0)||(pst_x_2(cnt_1)>=area_x)
                     %Perform the crossover
                     pst_x_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_x_2(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_x_2(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_5)).pst_x_2(cnt_1));
+                    F_DE=F_DE*0.95;
                 end
             else
                 %Not perform the crossover
                 pst_x_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_x_2(cnt_1);
             end
+            F_DE=F_DE_ori;
         end
         %Phase 2 y
         for cnt_1=1:1:amount_airship
@@ -510,11 +519,13 @@ switch type_new
                 while (pst_y_2(cnt_1)<=0)||(pst_y_2(cnt_1)>=area_y)
                     %Perform the crossover
                     pst_y_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_2(cnt_1)+F_DE*(pop_array(pop_array(cnt_parent).nb(cnt_4)).pst_y_2(cnt_1)-pop_array(pop_array(cnt_parent).nb(cnt_5)).pst_y_2(cnt_1));
+                    F_DE=F_DE*0.95;
                 end
             else
                 %Not perform the crossover
                 pst_y_2(cnt_1)=pop_array(pop_array(cnt_parent).nb(cnt_3)).pst_y_2(cnt_1);
             end
+            F_DE=F_DE_ori;
         end
         
     case 4
