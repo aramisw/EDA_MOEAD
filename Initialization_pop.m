@@ -6,6 +6,7 @@ function pop_array=Initialization_pop(amount_pop,area_x,area_y,amount_airship,am
 %        Check #1
 %        Check #2
 %        Check #3
+%        Check #4
 %Description: This function initialize the pop_array
 
 %ATTENTION
@@ -76,7 +77,8 @@ for cnt_1=1:1:amount_pop
                 (pop_array(cnt_1).pst_x_2(cnt_2)==0)||...
                 (pop_array(cnt_1).pst_x_2(cnt_2)==area_x)||...
                 (pop_array(cnt_1).pst_y_2(cnt_2)==0)||...
-                (pop_array(cnt_1).pst_y_2(cnt_2)==area_y))
+                (pop_array(cnt_1).pst_y_2(cnt_2)==area_y)...
+              )
             pop_array(cnt_1).pst_x_1(cnt_2)=area_x*rand();
             pop_array(cnt_1).pst_y_1(cnt_2)=area_y*rand();
             pop_array(cnt_1).pst_x_2(cnt_2)=area_x*rand();

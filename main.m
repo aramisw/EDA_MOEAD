@@ -37,8 +37,7 @@ rng('shuffle');
 
 %ID set
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-ID_series(1,:)='000002';
-ID_series(2,:)='000003';
+ID_series(1,:)='000003';
 %$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 %Calculate the number of experiment series
