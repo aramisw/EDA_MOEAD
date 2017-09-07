@@ -95,7 +95,7 @@ for cnt_1=1:1:amount_pop
     pop_array(cnt_1).obj_2=Obj_2(pop_array(cnt_1),amount_airship,prec_obj_2,area_x,area_y,dist_cov);
 end
 
-reference_obj_1=[0,0,0];  %Set the reference objective value as [0,0,0], in which the first value is the maximum objective value and the second one is the minimum objective value and the third value is the interval between the maximum and minimum values
+reference_obj_1=[0,0,0];  %Set the reference objective value as [0,0,0], in which the first value is the minimum objective value and the second one is the maximum objective value and the third value is the interval between the maximum and minimum values
 reference_obj_2=[0,0,0];
 indic_ref_obj_1=0;  %#ok<NASGU> %The indicator which indicates whether the reference of the population have been changed
 indic_ref_obj_2=0;  %#ok<NASGU> % '0' for unchanged and '1' for changed
